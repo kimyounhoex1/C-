@@ -7,6 +7,20 @@ class Date {
   int day_;
   int date[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 public:
+  // Date() = default;
+  Date(){
+    std::cout << "기본 생성자 호출!" << std::endl;
+    year_ = 2025;
+    month_ = 9;
+    day_ = 22;
+  }
+
+  Date(int year, int month, int day){
+    std::cout << "인자 3개인 생성자 호출!" << std::endl;
+    year_ = year;
+    month_ = month;
+    day_ = day;
+  }
   void SetDate(int year, int month, int date);
   void AddDay(int inc);
   void AddMonth(int inc);
@@ -17,6 +31,7 @@ public:
   int MakeDate();
   void ShowDate();
 };
+
 
 void Date::SetDate(int year, int month, int date){
   year_ = year;
@@ -78,16 +93,8 @@ void Date::ShowDate(){
 
 int main(){
   Date day;
-    day.SetDate(2011, 3, 1);
-    day.ShowDate();
-    day.AddDay(30);
-    day.ShowDate();
-    day.AddDay(2000);
-    day.ShowDate();
-    day.SetDate(2012, 1, 31); // 윤년
-    day.AddDay(29);
-    day.ShowDate();
-    day.SetDate(2012, 8, 4);
-    day.AddDay(2500);
-    day.ShowDate();
+  Date day2(2012, 10, 31);
+  day.ShowDate();
+  day2.ShowDate();
+  return 0;
 }
