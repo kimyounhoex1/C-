@@ -10,8 +10,9 @@ class Photo_Canon {
   
 public:
   Photo_Canon(int x, int y, const char* photo_name);
-  // Photo_Canon(const Photo_Canon& pc, const char* photo);
+  // Photo_Canon(const Photo_Canon& pc);
   ~Photo_Canon();
+
 
   void show_status();
 };
@@ -26,6 +27,17 @@ Photo_Canon::Photo_Canon(int x, int y, const char* photo_name){
   name = new char[strlen(photo_name) + 1];
   strcpy(name, photo_name);
 }
+
+// Photo_Canon::Photo_Canon(const Photo_Canon& pc) {
+//   hp = pc.hp;
+//   shield = pc.shield;
+//   damage = pc.damage;
+//   coord_x = pc.coord_x;
+//   coord_y = pc.coord_y;
+
+//   name = new char[strlen(pc.name) + 1];
+//   strcpy(name, pc.name);
+// }
 
 // Photo_Canon::Photo_Canon(const Photo_Canon& pc, const char* photo_name){
 //   std::cout << "복사 생성자 호출! " << std::endl;
