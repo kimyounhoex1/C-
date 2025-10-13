@@ -18,8 +18,9 @@ public:
   Marin(int x, int y, const char* marin_name);
   ~Marin();
 
-  int attack();
+  int attack() const;
   Marin& be_attacked(int damage_earn);
+  Marin be_attacked_mm(int damage_earn);
   void move(int x, int y);
 
   void show_status();
@@ -55,17 +56,24 @@ Marin::Marin(int x, int y, const char* marin_name) : hp(50), coord_x(x), coord_y
   total_marin_num++;
 }
 
-int Marin::attack(){
+int Marin::attack() const{
   return default_damage;
 }
+
 Marin& Marin::be_attacked(int damage_earn){
   hp -= damage_earn;
-  if(hp <= 0) {
-    is_dead = true;
-  }
+  if(hp <= 0) is_dead = true;
 
   return *this;
 }
+
+Marin Marin::be_attacked_mm(int damage_earn){
+  this->hp -= damage_earn;
+  if(this->hp <= 0) this->is_dead = true;
+
+  return *this;
+}
+
 void Marin::move(int x, int y){
   coord_x -= x;
   coord_y -= y;
