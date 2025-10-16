@@ -14,8 +14,8 @@ public:
   char* getContent();
 
   MyString& concat(MyString str);
-
-  void printStr();
+  
+  char* toString();
 };
 
 MyString::MyString(char c){
@@ -57,31 +57,26 @@ char* MyString::getContent() {
 }
 
 MyString& MyString::concat(MyString str){
-  // char* strContent = str.getContent();
-  // for(int i = 0; i<str.getLength(); i++){
-  //   *((this->string_content)+1) = *(strContent+1);
-  // }
-
   char* temp = new char[str.getLength() + string_length];
 
   memcpy(temp, string_content, string_length);
   memcpy(temp+string_length, str.getContent(), str.getLength());
-  
-  delete[] string_content;
-  delete[] temp;
+
+  delete[] string_content;  
 
   string_content = temp;
+  string_length = str.getLength()+string_length;
   return *this;
 }
 
-void MyString::printStr() {
+char* MyString::toString() {
   char* ptr = string_content;
-  while(ptr!='\0') {
+  while(*ptr != '\0') {
     std::cout << *ptr;
     ptr++;
   }
 
-  std::cout << std::endl;
+  return ptr;
 }
 
 int main() {
@@ -91,7 +86,11 @@ int main() {
   MyString *str1 = new MyString(myChar1);
   MyString *str2 = new MyString(myChar2);
 
-  str1->printStr();
-  str2->printStr();
+  std::cout << str1->toString() << std::endl;
+  std::cout << str2->toString() << std::endl;
 
+  str1->concat(*str2);
+
+
+  std::cout << str1->toString() << std::endl;
 }
