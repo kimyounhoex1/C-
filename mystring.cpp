@@ -201,49 +201,91 @@ char MyString::at(int i) const {
     return string_content[i];
 }
 
+// MyString& MyString::insert(int loc, const MyString& str){
+//   if(0 > string_length || string_length < loc) {
+//     return *this;
+//   }
+
+//   if(string_length + str.string_length > memory_capacity) {
+//     memory_capacity = string_length + str.string_length;
+
+//     char* temp_str = str.string_content;
+//     string_content = new char[memory_capacity];
+
+//     int index;
+
+//     for(index = 0; index<loc; index++) {
+//       string_content[index] = temp_str[index];
+//     }
+//     for(int j = 0; j <= str.string_length; j++) {
+//       string_content[index+j] = str.string_content[j];
+//     }
+//     for(; index < memory_capacity; index++) {
+//       string_content[str.string_length + index] = temp_str[index];
+//     }
+    
+//     delete[] temp_str;
+
+//     string_length = string_length + str.string_length;
+//     return *this;
+//     }
+  
+//   for(int i = string_length - 1; i >= loc; i--) {
+//     string_content[i+str.string_length] = string_content[i];
+//   }
+
+//   for(int i = 0; i<str.string_length; i++) {
+//     string_content[i + str.string_length] = string_content[i];
+//   }
+
+//   for(int i = 0; i<str.string_length; i++) {
+//     string_content[i + loc] = str.string_content[i];
+//   }
+//   string_length = string_length + str.string_length;
+//   return *this;
+  
+// }
+
 MyString& MyString::insert(int loc, const MyString& str){
-  if(0 > string_length || string_length < loc) {
+  if(loc < 0 && loc > memory_capacity) {
     return *this;
   }
 
-  if(string_length + str.string_length > memory_capacity) {
-    memory_capacity = string_length + str.string_length;
-
-    char* temp_str = str.string_content;
-    string_content = new char[memory_capacity];
-
-    int index;
-
-    for(index = 0; index<loc; index++) {
+  if(str.string_length + string_length > memory_capacity) {
+    char* temp_str = string_content;
+    string_content = new char[str.string_length + string_length];
+    memory_capacity = str.string_length + string_length;
+    size_t index;
+    // std::cout << "--------------" << std::endl;
+    for(index = 0; index < loc; index++) {
       string_content[index] = temp_str[index];
+      // std::cout << index << std::endl;
     }
-    for(int j = 0; j <= str.string_length; j++) {
+    // std::cout << "--------------" << std::endl;
+    for(int j = 0; j < str.string_length; j++) {
       string_content[index+j] = str.string_content[j];
+      // std::cout << index+j << std::endl;
     }
+    // std::cout << "--------------" << std::endl;
     for(; index < memory_capacity; index++) {
-      string_content[str.string_length + index] = temp_str[index];
+      string_content[str.string_length+index] = temp_str[index];
+      // std::cout << loc + str.string_length+index << std::endl;
     }
-    
-    delete[] temp_str;
 
+    delete[] temp_str;
     string_length = string_length + str.string_length;
     return *this;
-    }
-  
-  for(int i = string_length - 1; i >= loc; i--) {
-    string_content[i+str.string_length] = string_content[i];
   }
 
-  for(int i = 0; i<str.string_length; i++) {
-    string_content[i + str.string_length] = string_content[i];
+  for(int i = string_length-1; i >= loc; i--){
+    string_content[i+string_length] = string_content[i];
   }
-
   for(int i = 0; i<str.string_length; i++) {
-    string_content[i + loc] = str.string_content[i];
+    string_content[loc+i] = str.string_content[i];
   }
   string_length = string_length + str.string_length;
+
   return *this;
-  
 }
 
 MyString& MyString::insert(int loc, const char* str){
@@ -285,9 +327,15 @@ int main() {
   MyString str1("very long string");
   MyString str2("<some string inserted between>");
   str1.reserve(30);
+  std::cout << "str1 ------------" << std::endl;
   std::cout << "Capacity : " << str1.capacity() << std::endl;
   std::cout << "String length : " << str1.length() << std::endl;
+  std::cout << "str2 ------------" << std::endl;
+  std::cout << "Capacity : " << str2.capacity() << std::endl;
+  std::cout << "String length : " << str2.length() << std::endl;
+  std::cout << "--------------" << std::endl;
   str1.println();
   str1.insert(5, str2);
   str1.println();
+  std::cout << "--------------" << std::endl;
 }
