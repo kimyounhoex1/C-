@@ -28,6 +28,11 @@ public:
   MyString& insert(int loc, const MyString& str);
   MyString& insert(int loc, const char* str);
   MyString& insert(int loc, char c);
+  MyString& erase(int loc ,int num);
+  int find(int find_from, MyString& str) const;
+  int find(int find_from, char* str) const;
+  int find(int find_from, char c) const;
+  int compare(const MyString& str) const;
 
   void print() const;
   void println() const;
@@ -298,6 +303,60 @@ MyString& MyString::insert(int loc, char c){
   return insert(loc, temp);
 }
 
+MyString& MyString::erase(int loc ,int num) {
+  if(num < 0 || loc < 0 || loc > string_length) return *this;
+
+  for(int i = loc + num; i <string_length; i++) {
+    string_content[i-num] = string_content[i]; 
+  }
+
+  string_length = string_length - num;
+  return *this;
+}
+
+int MyString::find(int find_from, MyString& str) const {
+  int i, j;
+  if(str.string_length == 0) return -1;
+  for(i = find_from; i<string_length - str.string_length; i++) {
+    for(j = 0; j < str.string_length; j++){
+      if(string_content[i+j] != str.string_content[j]) {
+        break;
+      }
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+int MyString::find(int find_from, char* str) const {
+  MyString myStr(str);
+  return find(find_from, myStr);
+}
+
+int MyString::find(int find_from, char c) const {
+  MyString myStr(c);
+  return find(find_from, myStr);
+}
+
+int MyString::compare(const MyString& str) const {
+  int min_len = std::min(string_length, str.string_length);
+  for(int i = 0; i < min_len; i++) {
+    if(string_content[i] > str.string_content[i]) {
+      return 1;
+    }
+    else if(string_content[i] < str.string_content[i]) {
+      return -1;
+    }
+  }
+  if(string_length == str.string_length) 
+    return 0;
+  else if (string_length > str.string_length) {
+    return 1;
+  }
+  return -1;
+}
+
 int main() {
   // const char* myChar1 = "Hello";
   // const char* myChar2 = " World";
@@ -338,4 +397,13 @@ int main() {
   str1.insert(5, str2);
   str1.println();
   std::cout << "--------------" << std::endl;
+  MyString str3("ry");
+  std::cout << str1.find(0, str3) << std::endl;
+
+  MyString str4("ab");
+  MyString str5("abc");
+
+  std::cout << str4.compare(str5) << std::endl;
+  std::cout << str5.compare(str4) << std::endl;
+
 }
