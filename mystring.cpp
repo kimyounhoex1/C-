@@ -405,5 +405,4 @@ int main() {
 
   std::cout << str4.compare(str5) << std::endl;
   std::cout << str5.compare(str4) << std::endl;
-
 }
