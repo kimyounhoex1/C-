@@ -14,9 +14,10 @@ public:
   int length() const;
   char* content() const;
   int capacity() const;
+  
 
   MyString& assign(const MyString& str);
-  MyString& assign(const char* str);
+  MyString& assign(const char* str); 
 
   MyString& concat(MyString str);
   bool contain(MyString& str);
