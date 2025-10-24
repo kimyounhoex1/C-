@@ -106,7 +106,7 @@ void Marin::show_total_marin(){
 
 int main() {
   Marin marin1(2, 3, 5);
-  marin1.show_status();
+  marin1.show_status();  
 
   Marin marin2(3, 5, 10);
   marin2.show_status();
