@@ -103,6 +103,7 @@ void Marin::show_total_marin(){
   std::cout << "전체 마린 수: " << total_marin_num << std::endl;
 }
 // 다른거 하는중
+// openCV
 
 int main() {
   Marin marin1(2, 3, 5);
